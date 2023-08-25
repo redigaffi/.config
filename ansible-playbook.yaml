@@ -1,7 +1,27 @@
-  - name: "Install Neovim Dependencies"
+  - name: "Install Neovim and it's dependencies"
     hosts: localhost
     connection: local 
     tasks:
+      - name: Download latest nvim
+        ansible.builtin.unarchive:
+          src: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+          dest: /tmp
+          remote_src: yes
+
+      - name: Copy nvim to /usr/bin/nvim
+        ansible.builtin.copy:
+          src: /tmp/nvim-linux64/bin/nvim
+          dest: /usr/bin/nvim 
+          mode: 0777
+          become: yes
+
+      - name: Creates Packer directory
+        file:
+          path: ~/.local/share/nvim/site/pack/packer/start/
+          state: directory
+          mode: 0775
+          recurse: yes
+
       - name: Clone packer
         git:
           repo: https://github.com/wbthomason/packer.nvim
@@ -10,8 +30,12 @@
           update: yes
           depth: 1
 
+      - name: Install Packer's dependencies
+        ansible.builtin.shell: nvim -c ":PackerSync" -c "sleep 10" -c ":qa"
+
       # https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies
       - name: Update repositories cache and install "ripgrep" package
+        become: true
         ansible.builtin.apt:
           name: ripgrep 
           update_cache: yes
@@ -21,14 +45,8 @@
           path: "{{ lookup('env', 'HOME') }}/.fonts"
           state: directory
 
-      - name: Hack exists
-        shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
-        register: hack_exists
-        ignore_errors: yes
-
       - name: Download Hack
-        when: hack_exists is failed
         ansible.builtin.unarchive:
-          src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+          src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
           dest: "{{ lookup('env', 'HOME') }}/.fonts/"
           remote_src: yes
