@@ -5,7 +5,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
 vim.wo.relativenumber = true
-vim.g.material_style = "darker"
+vim.g.material_style = "deep ocean"
 
 vim.cmd("colorscheme material")
 
