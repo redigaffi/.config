@@ -55,4 +55,5 @@ return require('packer').startup(function(use)
 	}
 
 	use("Raimondi/delimitMate")
+	use("tpope/vim-fugitive")
   end)
