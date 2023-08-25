@@ -1,0 +1,34 @@
+  - name: "Install Neovim Dependencies"
+    hosts: localhost
+    connection: local 
+    tasks:
+      - name: Clone packer
+        git:
+          repo: https://github.com/wbthomason/packer.nvim
+          dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+          clone: yes
+          update: yes
+          depth: 1
+
+      # https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies
+      - name: Update repositories cache and install "ripgrep" package
+        ansible.builtin.apt:
+          name: ripgrep 
+          update_cache: yes
+
+      - name: ensure fonts directory
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.fonts"
+          state: directory
+
+      - name: Hack exists
+        shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
+        register: hack_exists
+        ignore_errors: yes
+
+      - name: Download Hack
+        when: hack_exists is failed
+        ansible.builtin.unarchive:
+          src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+          dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+          remote_src: yes

@@ -3,3 +3,4 @@
 !/nvim/
 /nvim/spell
 !/.gitignore
+!/ansible-playbook.yaml
