@@ -4,10 +4,16 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
-vim.wo.relativenumber = true
-vim.g.material_style = "deep ocean"
+-- https://jeffkreeftmeijer.com/vim-number/
+vim.cmd(':set number relativenumber')
+vim.cmd(':se cursorline')
 
+vim.g.material_style = "deep ocean"
 vim.cmd("colorscheme material")
+
+-- https://vimtricks.com/p/vim-spell-check/
+vim.cmd('set spell')
+vim.cmd('set spelllang=en_us')
 
 local cmp = require('cmp')
 
