@@ -20,6 +20,8 @@
             - cmake
             - gettext          
           update_cache: yes
+          force: yes
+          allow_unauthenticated: true
 
       # https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies
       - name: Install ripgrep
