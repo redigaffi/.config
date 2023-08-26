@@ -10,3 +10,8 @@ pip install ansible
 ```
 ansible-playbook ansible-playbook.yaml -K
 ```
+
+If any issues with Treesitter, uninstall all parsers with:
+```
+:TSUninstall all
+```
