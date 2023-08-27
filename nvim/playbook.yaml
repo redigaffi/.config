@@ -1,0 +1,57 @@
+  - name: "Install Neovim and it's dependencies"
+    hosts: localhost
+    connection: local 
+    tasks:
+      #TODO: Pin version to v0.10.0 
+      - name: Download latest Neovim source
+        git:  
+          repo: https://github.com/neovim/neovim.git
+          dest: /tmp/nvim-source
+          clone: yes
+          update: yes
+          version: nightly
+          depth: 1
+
+      - name: Install compile dependencies
+        become: true
+        ansible.builtin.apt:
+          pkg:
+            - make
+            - cmake
+            - gettext          
+          update_cache: yes
+
+      # https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies
+      - name: Install ripgrep
+        become: yes
+        apt:
+          allow_downgrade: true
+          deb: https://github.com/BurntSushi/ripgrep/releases/latest/download/ripgrep_13.0.0_amd64.deb
+
+      - name: Compile and install neovim
+        become: yes
+        ansible.builtin.shell: cd /tmp/nvim-source && make CMAKE_BUILD_TYPE=RelWithDebInfo && make install
+          
+      - name: Creates Packer directory
+        file:
+          path: ~/.local/share/nvim/site/pack/packer/start/
+          state: directory
+          mode: 0775
+          recurse: yes
+
+      - name: Clone packer
+        git:
+          repo: https://github.com/wbthomason/packer.nvim
+          dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+          clone: yes
+          update: yes
+          depth: 1
+
+      - name: Install Packer's dependencies
+        ansible.builtin.shell: nvim -c ":PackerSync" -c "sleep 10" -c ":qa"
+
+      - name: Download Hack
+        ansible.builtin.unarchive:
+          src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+          dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+          remote_src: yes
