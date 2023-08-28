@@ -1,6 +1,7 @@
 /*
 /*/
 !/nvim/
+!/ohmyzsh/
 /nvim/spell
 !/.gitignore
 !/ansible-playbook.yaml

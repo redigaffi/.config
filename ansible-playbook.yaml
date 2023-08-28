@@ -1,2 +1,3 @@
 - import_playbook: nvim/playbook.yaml
+- import_playbook: ohmyzsh/playbook.yaml
 

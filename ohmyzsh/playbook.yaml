@@ -1,0 +1,21 @@
+  - name: "Install Oh-My-Zsh"
+    hosts: localhost
+    connection: local 
+    tasks:
+      - name: Install zsh
+        become: true
+        ansible.builtin.apt:
+          pkg:
+            - zsh 
+          update_cache: yes
+
+      - name: Install oh-my-zsh 
+        ansible.builtin.shell: yes 'Y' | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+      - name: Delete .zshrc file
+        ansible.builtin.shell: "rm {{ lookup('env', 'HOME') }}/.zshrc" 
+
+      - name: Create .zshrc symlink 
+        ansible.builtin.shell: "ln -s {{ lookup('env', 'HOME') }}/.config/ohmyzsh/.zshrc {{ lookup('env', 'HOME') }}/.zshrc" 
+
+
