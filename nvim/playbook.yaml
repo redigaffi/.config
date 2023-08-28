@@ -50,8 +50,20 @@
       - name: Install Packer's dependencies
         ansible.builtin.shell: nvim -c ":PackerSync" -c "sleep 10" -c ":qa"
 
+      - name: Creates Fonts directory
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.fonts/"
+          state: directory
+          mode: 0775
+          recurse: yes
+
       - name: Download Hack
         ansible.builtin.unarchive:
           src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
           dest: "{{ lookup('env', 'HOME') }}/.fonts/"
           remote_src: yes
+
+      - name: Clear cache font
+        become: yes
+        ansible.builtin.shell: fc-cache -f -v
+
