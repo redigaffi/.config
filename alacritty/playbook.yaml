@@ -14,6 +14,18 @@
             -  alacritty
           update_cache: yes
       
-      - name: Create .zshrc symlink 
-        ansible.builtin.shell: "ln -s {{ lookup('env', 'HOME') }}/.config/alacritty/alacritty.yaml {{ lookup('env', 'HOME') }}/.alacritty.yaml" 
+      - name: Creates Alacritty directory
+        file:
+          path: ~/.config/alacritty/themes
+          state: directory
+          mode: 0775
+          recurse: yes
+      
+      - name: Clone Alacritty themes
+        git:
+          repo: https://github.com/alacritty/alacritty-theme
+          dest: ~/.config/alacritty/themes
+          clone: yes
+          update: yes
+          depth: 1
 

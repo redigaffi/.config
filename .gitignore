@@ -2,6 +2,9 @@
 /*/
 !/nvim/
 !/ohmyzsh/
+!/awesomewm/
+!/alacritty/
 /nvim/spell
+/alacritty/themes
 !/.gitignore
 !/ansible-playbook.yaml
