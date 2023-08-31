@@ -1,0 +1,19 @@
+  - name: "Install AwesomeWM"
+    hosts: localhost
+    connection: local 
+    tasks:
+      - name: Add Alacritty repository
+        become: true
+        ansible.builtin.apt_repository:
+          repo: ppa:aslatter/ppa
+
+      - name: Install AwesomeWM
+        become: true
+        ansible.builtin.apt:
+          pkg:
+            -  alacritty
+          update_cache: yes
+      
+      - name: Create .zshrc symlink 
+        ansible.builtin.shell: "ln -s {{ lookup('env', 'HOME') }}/.config/alacritty/alacritty.yaml {{ lookup('env', 'HOME') }}/.alacritty.yaml" 
+
