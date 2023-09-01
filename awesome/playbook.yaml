@@ -1,0 +1,12 @@
+  - name: "Install AwesomeWM"
+    hosts: localhost
+    connection: local 
+    tasks:
+      - name: Install AwesomeWM and dependencies
+        become: true
+        ansible.builtin.apt:
+          pkg:
+            -  awesome
+            -  polybar
+          update_cache: yes
+
