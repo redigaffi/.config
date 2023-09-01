@@ -585,6 +585,9 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+beautiful.gap_single_client = true
+beautiful.useless_gap = 6
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
@@ -596,5 +599,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("flameshot")
 awful.spawn.with_shell("feh --bg-scale ~/Imágenes/Wallpaper/wallpaperflare.com_wallpaper.jpg")
+awful.spawn.with_shell("nm-applet &")
 awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1200 --scale 1") -- laptop
 -- awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1080 --scale 1") -- screen
