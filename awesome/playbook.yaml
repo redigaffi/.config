@@ -6,7 +6,7 @@
         become: true
         ansible.builtin.apt:
           pkg:
-            -  awesome
-            -  polybar
+            - awesome
+            - rofi
+            - feh
           update_cache: yes
-
