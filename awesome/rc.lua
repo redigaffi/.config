@@ -596,4 +596,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("flameshot")
 awful.spawn.with_shell("feh --bg-scale ~/Imágenes/Wallpaper/wallpaperflare.com_wallpaper.jpg")
-
+awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1200 --scale 1") -- laptop
+-- awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1080 --scale 1") -- screen
