@@ -615,4 +615,5 @@ awful.spawn.with_shell("flameshot")
 awful.spawn.with_shell("feh --bg-scale ~/Imágenes/Wallpaper/wallpaperflare.com_wallpaper.jpg")
 awful.spawn.with_shell("nm-applet &")
 awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1200 --scale 1") -- laptop
+awful.spawn.with_shell("SESSION_MANAGER=gnome xfce4-power-manager") -- laptop
 -- awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1080 --scale 1") -- screen
