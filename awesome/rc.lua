@@ -617,3 +617,4 @@ awful.spawn.with_shell("nm-applet &")
 awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1200 --scale 1") -- laptop
 awful.spawn.with_shell("SESSION_MANAGER=gnome xfce4-power-manager") -- laptop
 -- awful.spawn.with_shell("xrandr --output eDP-1 --mode 1920x1080 --scale 1") -- screen
+-- awful.spawn.with_shell("xrandr --output DP-1 --same-as eDP-1 --mode 1920x1080") -- example of monitor connected 
