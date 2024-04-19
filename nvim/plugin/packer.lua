@@ -2,7 +2,7 @@ return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.1',
+		'nvim-telescope/telescope.nvim', tag = '0.1.6',
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
@@ -56,4 +56,15 @@ return require('packer').startup(function(use)
 
 	use("Raimondi/delimitMate")
 	use("tpope/vim-fugitive")
-  end)
+	use("MunifTanjim/nui.nvim")
+	use {
+    "kawre/leetcode.nvim",
+    run = ":TSUpdate html",
+    requires = {
+        {"MunifTanjim/nui.nvim"},
+    },
+    config = function()
+        require("leetcode").setup({})
+    end
+	}
+end)
